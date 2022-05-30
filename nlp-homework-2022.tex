@@ -114,7 +114,7 @@ look at the hashtags, twitter id / @handle
 \item
 crawl or find a dataset that has the name of celebrities and some information about their field of work (sport, movie, politician, ...) e.g. actor/actress imdb
 \item
-Look at the other people mentioned in the tweet and find out if they have a similar profession. Use the hashtags.
+Look at the other people mentioned in the tweet and find out if they have a similar profession. Use the hashtags. Crawl a dataset of tweets that mention the celebrities by handle. Get a list of celebrities to twitter handles. Now we can train a model to identify which celebrity was mentioned in a tweet (mask out the handle of this person).
 \end{enumerate}
 
 
@@ -126,7 +126,16 @@ Look at the other people mentioned in the tweet and find out if they have a simi
 	\item How well do you expect your method to work? What are the bottlenecks?
 \end{enumerate}
 
-% Your answer here
+\begin{enumerate}
+\item  
+	Consider larger knowledge bases in the web (wikipedia, ...), other bachelor thesis,master thesis and other publications. If we know the field we can narrow down the data needed. \\ Previously known cases of plagiarism will also be useful.
+\item 
+	Use some vector embedding like GloVe. Compute similarity features and containment. Find subsequences that are the same (long = probably plagiarism)
+\item 
+	some deep learning model
+\item
+	Data collection would need large amount of resources. Further training the model on a large amount we would take quite some time.
+\end{enumerate}
 
 \newpage \item \textit{Causality}. You are asked to build a system to extract causal statements from text of a manufacturing company with a lot of textual document, including technical reports. For example the sentence \newline\texttt{``Mechanical stress is one of the main causes of yield loss''} \newline should be automatically annotated as \newline\texttt{``\{Mechanical stress\}$_{Cause}$ is one of the main \{causes\}$_{Cue}$ of \{yield loss\}$_{Effect}$''}.
 \begin{enumerate}
@@ -134,7 +143,12 @@ Look at the other people mentioned in the tweet and find out if they have a simi
 	\item What properties do you expect for your approach? E.g., better recall/precision, better performance on longer sentence?
 \end{enumerate}
 
-% Your answer here
+\begin{enumerate}
+\item  
+	machine learning approach, deep learning BERT (maybe we find a pretrained BERT-model that is trained on technical reports or similar), 
+\item 
+	Evaluation often struggles as there is often no ground truth.
+\end{enumerate}
 
 
 \newpage \item \textit{Evaluation}. You developed a method for style transfer for German text. Given a sentence written by an arbitrary writing style, you methods outputs the ``same'' text as it were written by a famous author (e.g., Thomas Mann, Wolf Haas).  Now you are requested to assess how well your system is working. 
@@ -144,7 +158,14 @@ Look at the other people mentioned in the tweet and find out if they have a simi
 	\item Are there known limitations in your evaluation methodology or evaluation measures?
 \end{enumerate}
 
-% Your answer here
+\begin{enumerate}
+\item  
+	somehow create some ground truth that we can compare to, otherwise we need to involve humans that rate the output of the model	
+\item 
+	compare the stylography of the output of the model with texts from the author we are trying to mimic
+\item 
+	
+\end{enumerate}
 
 
 \end{enumerate}\end{document}
