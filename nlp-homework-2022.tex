@@ -1,0 +1,114 @@
+% (c) 2005 Lukasz Grzegorz Maciak
+\documentclass[a4paper,10pt]{article}
+\setlength{\textheight}{10in}\setlength{\textwidth}{6.5in}\setlength{\topmargin}{-0.125in}\setlength{\oddsidemargin}{-.2in}\setlength{\evensidemargin}{-.2in}\setlength{\headsep}{0.2in}\setlength{\footskip}{0pt}
+\usepackage{amsmath}\usepackage{fancyhdr}\usepackage{enumitem}\usepackage{hyperref}\usepackage{graphicx}\usepackage{subcaption}\usepackage{libertine}\usepackage{bm}\usepackage{amssymb} \usepackage{tikz}\usepackage{fontawesome}
+\pagestyle{fancy}\lhead{Name: Alexander Palmisano}\chead{M.Number: 11707789}\rhead{NLP (706.230)}\fancyfoot{}
+\begin{document}\begin{enumerate}[topsep=0mm, partopsep=0mm, leftmargin=*]
+
+
+% Hint: change the \item to \item[\faCheckSquare] to make this your selection!
+
+\item \textit{Text Representation}. What is the document-term matrix?
+\begin{itemize}[topsep=0mm, partopsep=0mm, noitemsep, leftmargin=*, label=\faSquareO]
+	\item Each term of a language is getting documented by specially trained linguists
+	\item The latent representation of attention heads in Transformer blocks
+	\item Feature space spawned by terms over documents represented as a matrix
+	\item Adjacency matrix of the bipartite graph of documents and the terms contained in each document 
+\end{itemize}
+
+\item \textit{Assumptions}. Which are reasonable approaches to capture information in text?
+\begin{itemize}[topsep=0mm, partopsep=0mm, noitemsep, leftmargin=*, label=\faSquareO]
+	\item Words are influenced by their surrounding words in context
+	\item The sentiment influences the word order in conjunctions
+	\item Average sentence length depends on the author's specific writing style
+	\item Lexems depends on the anaphoric resolution
+\end{itemize}
+
+\item \textit{Learning}. Which of these statements is true?
+\begin{itemize}[topsep=0mm, partopsep=0mm, noitemsep, leftmargin=*, label=\faSquareO]
+	\item Deep learning is always preferred over rule-based approaches
+	\item Rule-based approaches require large amounts of labelled training data
+	\item The industry often prefers rule-based approaches over machine learning
+	\item Deep learning is considered the state of the art for many NLP tasks
+\end{itemize}
+
+
+\newpage \item \textit{Named Entity Recognition}. There are multiple ways on how to encode the tokens used to train sequence classification systems, like named entity recognition systems. 
+\begin{enumerate}
+	\item Why is a simple binary scheme like EO (entity token, outside token) not a good idea?
+	\item What could be the reason that a BERT-based sequence classifier fail to learn \texttt{[O B I O $\cdots$]} and outputs \texttt{[O I I O $\cdots$]} instead?
+\end{enumerate}
+
+% Your answer here
+
+
+\newpage \item \textit{Word Embeddings}. Traditional word embedding techniques like word2vec have been popular in past years, but today are less used and contextual embedding techniques are preferred. 
+\begin{enumerate}
+	\item What are the advantages of contextual word embeddings, like BERT, over classical word embeddings?
+	\item Are there cases, where a traditional word embedding method is preferred? If yes, please provide an example.
+\end{enumerate}
+
+% Your answer here
+
+
+\newpage \item \textit{Deep Learning}. Many attention-based approaches combine as inputs a token embedding and a position embedding. 
+\begin{enumerate}
+	\item Why is there a position embedding, what is its purpose?
+	\item Are there tasks, where the position embedding is not useful? If yes, please provide an example.
+\end{enumerate}
+
+% Your answer here
+
+
+\newpage \item \textit{Word Senses}. You are asked to develop a method for disambiguation of named entities, e.g., names of celebrities, based on Tweets. For example this tweet refers to Adam Scott, the golfer and not Adam Scott, the actor.
+\begin{quote}\color{blue}
+AmerExperience.com/Golf @ShopAmerGolf May 23 \\
+~\\
+FREE GOLF MAGAZINE
+Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 2022 U.S. Open | Flipboard $<$url$>$ Read for free 
+\#golfnews \#golflessons \#golftraining
+\end{quote}
+
+\begin{enumerate}
+	\item Are there any Twitter-specific features, which can be used for this task?
+	\item Would there be other data sources that can be useful for the task?
+	\item Briefly describe how you would solve the task. 
+\end{enumerate}
+
+% Your answer here
+
+
+\newpage \item \textit{Plagiarism}. Consider the university asks you to develop a system to test thesis (e.g., Bachelor and Master) for cases of plagiarism. Your system should for each thesis check, if there are plagiarised passages and mark the beginning and the end of a suspicious passage, which is then checked by human experts. 
+\begin{enumerate}
+	\item Which data sources would you consider? 
+	\item What features would you use? (short list with explanation)
+	\item What method would you choose?
+	\item How well do you expect your method to work? What are the bottlenecks?
+\end{enumerate}
+
+% Your answer here
+
+\newpage \item \textit{Causality}. You are asked to build a system to extract causal statements from text of a manufacturing company with a lot of textual document, including technical reports. For example the sentence \newline\texttt{``Mechanical stress is one of the main causes of yield loss''} \newline should be automatically annotated as \newline\texttt{``\{Mechanical stress\}$_{Cause}$ is one of the main \{causes\}$_{Cue}$ of \{yield loss\}$_{Effect}$''}.
+\begin{enumerate}
+	\item What type of approach do you choose?
+	\item What properties do you expect for your approach? E.g., better recall/precision, better performance on longer sentence?
+\end{enumerate}
+
+% Your answer here
+
+
+\newpage \item \textit{Evaluation}. You developed a method for style transfer for German text. Given a sentence written by an arbitrary writing style, you methods outputs the ``same'' text as it were written by a famous author (e.g., Thomas Mann, Wolf Haas).  Now you are requested to assess how well your system is working. 
+\begin{enumerate}
+	\item What evaluation methodology do you follow?
+	\item What evaluation measures do you use?
+	\item Are there known limitations in your evaluation methodology or evaluation measures?
+\end{enumerate}
+
+% Your answer here
+
+
+\end{enumerate}\end{document}
+
+
+
+
