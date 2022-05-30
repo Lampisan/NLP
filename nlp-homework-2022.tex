@@ -1,7 +1,7 @@
 % (c) 2005 Lukasz Grzegorz Maciak
 \documentclass[a4paper,10pt]{article}
 \setlength{\textheight}{10in}\setlength{\textwidth}{6.5in}\setlength{\topmargin}{-0.125in}\setlength{\oddsidemargin}{-.2in}\setlength{\evensidemargin}{-.2in}\setlength{\headsep}{0.2in}\setlength{\footskip}{0pt}
-\usepackage{amsmath}\usepackage{fancyhdr}\usepackage{enumitem}\usepackage{hyperref}\usepackage{graphicx}\usepackage{subcaption}\usepackage{libertine}\usepackage{bm}\usepackage{amssymb} \usepackage{tikz}\usepackage{fontawesome}
+\usepackage{amsmath}\usepackage{fancyhdr}\usepackage{enumitem}\usepackage{hyperref}\usepackage{graphicx}\usepackage{subcaption}\usepackage{libertine}\usepackage{bm}\usepackage{amssymb} \usepackage{tikz}\usepackage{fontawesome}\usepackage{todonotes}
 \pagestyle{fancy}\lhead{Name: Alexander Palmisano}\chead{M.Number: 11707789}\rhead{NLP (706.230)}\fancyfoot{}
 \begin{document}\begin{enumerate}[topsep=0mm, partopsep=0mm, leftmargin=*]
 
@@ -10,26 +10,37 @@
 
 \item \textit{Text Representation}. What is the document-term matrix?
 \begin{itemize}[topsep=0mm, partopsep=0mm, noitemsep, leftmargin=*, label=\faSquareO]
-	\item Each term of a language is getting documented by specially trained linguists
-	\item The latent representation of attention heads in Transformer blocks
-	\item Feature space spawned by terms over documents represented as a matrix
-	\item Adjacency matrix of the bipartite graph of documents and the terms contained in each document 
+	\item Each term of a language is getting documented by specially trained linguists \\
+		  \{ just does not make sense \}
+	\item The latent representation of attention heads in Transformer blocks \\
+		  \{ maps a query and a set of key-value pairs to an output \}
+	\item[\faCheckSquare] Feature space spawned by terms over documents represented as a matrix
+	\item Adjacency matrix of the bipartite graph of documents and the terms contained in each document \\
+  	 	  \{ why bipartite? Adjacency matrix would be square, document-term matrix \#documents $\times$ \#terms \}
 \end{itemize}
 
 \item \textit{Assumptions}. Which are reasonable approaches to capture information in text?
 \begin{itemize}[topsep=0mm, partopsep=0mm, noitemsep, leftmargin=*, label=\faSquareO]
-	\item Words are influenced by their surrounding words in context
-	\item The sentiment influences the word order in conjunctions
-	\item Average sentence length depends on the author's specific writing style
-	\item Lexems depends on the anaphoric resolution
+	\item[\faCheckSquare] Words are influenced by their surrounding words in context
+	\item The sentiment influences the word order in conjunctions \\
+		  \{ I would expect no influence here \}
+	\item[\faCheckSquare] Average sentence length depends on the author's specific writing style \\
+		 \{ also does depend on other factors, e.g. what text are we writing\}
+	\item Lexems depends on the anaphoric resolution \\
+		 \{ anaphoric resolution ... the problem of resolving what a pronoun, or a noun phrase refers to \\
+		    lexeme ... root form of a word \\
+			pronouns are probably invariable in terms of lexemes? \}
 \end{itemize}
 
 \item \textit{Learning}. Which of these statements is true?
 \begin{itemize}[topsep=0mm, partopsep=0mm, noitemsep, leftmargin=*, label=\faSquareO]
-	\item Deep learning is always preferred over rule-based approaches
-	\item Rule-based approaches require large amounts of labelled training data
-	\item The industry often prefers rule-based approaches over machine learning
-	\item Deep learning is considered the state of the art for many NLP tasks
+	\item Deep learning is always preferred over rule-based approaches \\
+		  \{ rule-based might be simpler, if it also solves the problem why not use it,  also rule-based approaches need far less data than deep learning\} 
+	\item Rule-based approaches require large amounts of labelled training data \\
+		  \{ often created manually, no need for large amount of data\}
+	\item The industry often prefers rule-based approaches over machine learning \\
+		  \{ can't really speak for the whole industry, but I guess that both approaches have valid applications\}
+	\item[\faCheckSquare] Deep learning is considered the state of the art for many NLP tasks
 \end{itemize}
 
 
@@ -39,7 +50,14 @@
 	\item What could be the reason that a BERT-based sequence classifier fail to learn \texttt{[O B I O $\cdots$]} and outputs \texttt{[O I I O $\cdots$]} instead?
 \end{enumerate}
 
-% Your answer here
+\begin{enumerate}
+\item
+can't really tell where one sequence ends and the next one starts
+\item
+(BERT sequence should start with a [CLS] token)\\
+inside, outside, beginning \\
+there is a beginning inside of two outsides
+\end{enumerate}
 
 
 \newpage \item \textit{Word Embeddings}. Traditional word embedding techniques like word2vec have been popular in past years, but today are less used and contextual embedding techniques are preferred. 
@@ -48,7 +66,14 @@
 	\item Are there cases, where a traditional word embedding method is preferred? If yes, please provide an example.
 \end{enumerate}
 
-% Your answer here
+\begin{enumerate}
+\item
+\todo[inline]{Rewrite this}
+For instance, if we have a sentence like ``Your mouse likes cheese'' and ``Buy a new mouse for your computer'' if we use ordinary embedding for the ``mouse'' we will get the same word embedding vector for both. In contextual word embedding, the goal is to have a different word embedding vector for each word in a specific situation. \\ 
+Traditional word embedding techniques learn a global word embedding. They first build a global vocabulary using unique words in the documents by ignoring the meaning of words in different context. Then, similar representations are learnt for the words appeared more frequently close each other in the documents. The problem is that in such word representations the words' contextual meaning is ignored.
+\item
+Can't really think of any
+\end{enumerate}
 
 
 \newpage \item \textit{Deep Learning}. Many attention-based approaches combine as inputs a token embedding and a position embedding. 
@@ -56,8 +81,16 @@
 	\item Why is there a position embedding, what is its purpose?
 	\item Are there tasks, where the position embedding is not useful? If yes, please provide an example.
 \end{enumerate}
-
-% Your answer here
+\begin{enumerate}
+\item
+\todo[inline]{Rewrite this}
+Unlike RNNs that recurrently process tokens of a sequence one by one, self-attention ditches sequential operations in favor of parallel computation. To use the sequence order information, we can inject absolute or relative positional information by adding positional encoding to the input representations. Positional encodings can be either learned or fixed. \\
+On the contrary, the transformer's encoder-decoder architecture uses attention mechanisms without recurrence and convolution. That's what the paper title “Attention Is All You Need” means. However, without positional information, an attention-only model might believe the following two sentences have the same semantics:
+Tom bit a dog.; A dog bit Tom. \\
+Well if you don't have a positional embedding matrix then the Transformer has no way of knowing the relative position of each word. It would be exactly like randomly shuffling the input sentence. So the positional embeddings let the model learn the actual sequential ordering of the input sentence (which something like an LSTM gets for free).
+\item
+speech to text, text generation
+\end{enumerate}
 
 
 \newpage \item \textit{Word Senses}. You are asked to develop a method for disambiguation of named entities, e.g., names of celebrities, based on Tweets. For example this tweet refers to Adam Scott, the golfer and not Adam Scott, the actor.
@@ -75,7 +108,14 @@ Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 202
 	\item Briefly describe how you would solve the task. 
 \end{enumerate}
 
-% Your answer here
+\begin{enumerate}
+\item
+look at the hashtags, twitter id / @handle
+\item
+crawl or find a dataset that has the name of celebrities and some information about their field of work (sport, movie, politician, ...) e.g. actor/actress imdb
+\item
+Look at the other people mentioned in the tweet and find out if they have a similar profession. Use the hashtags.
+\end{enumerate}
 
 
 \newpage \item \textit{Plagiarism}. Consider the university asks you to develop a system to test thesis (e.g., Bachelor and Master) for cases of plagiarism. Your system should for each thesis check, if there are plagiarised passages and mark the beginning and the end of a suspicious passage, which is then checked by human experts. 
