@@ -52,11 +52,11 @@
 
 \begin{enumerate}
 \item
-can't really tell where one sequence ends and the next one starts
+	can't really tell where one sequence ends and the next one starts
 \item
-(BERT sequence should start with a [CLS] token)\\
-inside, outside, beginning \\
-there is a beginning inside of two outsides
+	(BERT sequence should start with a [CLS] token)\\
+	inside, outside, beginning \\
+	there is a beginning inside of two outsides
 \end{enumerate}
 
 
@@ -68,11 +68,9 @@ there is a beginning inside of two outsides
 
 \begin{enumerate}
 \item
-\todo[inline]{Rewrite this}
-For instance, if we have a sentence like ``Your mouse likes cheese'' and ``Buy a new mouse for your computer'' if we use ordinary embedding for the ``mouse'' we will get the same word embedding vector for both. In contextual word embedding, the goal is to have a different word embedding vector for each word in a specific situation. \\ 
-Traditional word embedding techniques learn a global word embedding. They first build a global vocabulary using unique words in the documents by ignoring the meaning of words in different context. Then, similar representations are learnt for the words appeared more frequently close each other in the documents. The problem is that in such word representations the words' contextual meaning is ignored.
+	For classical word embeddings we would use the same embedding for words even if they are used in different contexts. For example ``computer mouse'' and ``mouse rodent'', in this case we would get the same word embedding vector for both (`global' word embedding). Contextual word embedding we would in the best case get two different embeddings depending on the context the word is used in.
 \item
-Can't really think of any
+	Can't really think of any. In some cases the contextual word embedding would not provide any advantages, but I see no case were it would actively hurt to use contextual word embeddings.
 \end{enumerate}
 
 
@@ -83,13 +81,10 @@ Can't really think of any
 \end{enumerate}
 \begin{enumerate}
 \item
-\todo[inline]{Rewrite this}
-Unlike RNNs that recurrently process tokens of a sequence one by one, self-attention ditches sequential operations in favor of parallel computation. To use the sequence order information, we can inject absolute or relative positional information by adding positional encoding to the input representations. Positional encodings can be either learned or fixed. \\
-On the contrary, the transformer's encoder-decoder architecture uses attention mechanisms without recurrence and convolution. That's what the paper title “Attention Is All You Need” means. However, without positional information, an attention-only model might believe the following two sentences have the same semantics:
-Tom bit a dog.; A dog bit Tom. \\
-Well if you don't have a positional embedding matrix then the Transformer has no way of knowing the relative position of each word. It would be exactly like randomly shuffling the input sentence. So the positional embeddings let the model learn the actual sequential ordering of the input sentence (which something like an LSTM gets for free).
+	The many attention-based approach does not really process the sequence of input tokens one by one (more of a parallel computation). Therefore the order of tokens gets lost. We believe that language has an order therefore we would like to keep this information intact. Otherwise the sentences ``cook kneads dough'' and ``dough kneads cook'' would be the same. This is achieved by additionally adding a position embedding, which could be either learned or fixed. Now the transformer is able to know the relative position of the words.
 \item
-speech to text, text generation
+	speech to text, text generation\\
+	If we would like to generate text the transformer does not really net a position embedding for the input.
 \end{enumerate}
 
 
@@ -110,11 +105,11 @@ Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 202
 
 \begin{enumerate}
 \item
-look at the hashtags, twitter id / @handle
+hashtags, twitter id / @handle
 \item
 crawl or find a dataset that has the name of celebrities and some information about their field of work (sport, movie, politician, ...) e.g. actor/actress imdb
 \item
-Look at the other people mentioned in the tweet and find out if they have a similar profession. Use the hashtags. Crawl a dataset of tweets that mention the celebrities by handle. Get a list of celebrities to twitter handles. Now we can train a model to identify which celebrity was mentioned in a tweet (mask out the handle of this person).
+We could crawl a dataset from twitter by using the twitter handle of celebrities. Now we know that these tweets correspond to the individual celebrities. We could train a model by masking out the text of the twitter handle of the person and asking the model to predict which celebrity the tweet corresponds too. We know the ground truth and after training we could apply the model on tweets that to not contain the twitter handle. 
 \end{enumerate}
 
 
@@ -128,13 +123,13 @@ Look at the other people mentioned in the tweet and find out if they have a simi
 
 \begin{enumerate}
 \item  
-	Consider larger knowledge bases in the web (wikipedia, ...), other bachelor thesis,master thesis and other publications. If we know the field we can narrow down the data needed. \\ Previously known cases of plagiarism will also be useful.
+	Consider larger knowledge bases in the web (wikipedia, ...), other bachelor thesis, master thesis and publications. If we know the field we could maybe narrow down the data needed. \\ Previously known cases of plagiarism (probably hand labeled) will also be useful.
 \item 
-	Use some vector embedding like GloVe. Compute similarity features and containment. Find subsequences that are the same (long = probably plagiarism)
+	 A simple feature to use would be n-grams and then there compare the overlap. Maybe use POS tagging for semantic similarity. Use some vector embedding like GloVe. Compute similarity features and containment. Find subsequences that are the same (long = probably plagiarism). We should also decide if we do this on a word or sentence level. Also stylometry could be considered. If some part of the text has a vastly different style and is not cited id could be an indication for plagiarism.
 \item 
-	some deep learning model
+	Some deep learning model. There are Deep Structured Sematic Models which might be a good fit for this task. Otherwise maybe a Bi-LSTM or Transformer.
 \item
-	Data collection would need large amount of resources. Further training the model on a large amount we would take quite some time.
+	Data collection would need large amount of resources. Furthermore training the model on a large amount of data will take quite some time. Would definitely work well on the form of ``copy-paste plagiarism''. If somebody translates one language into another and uses this to plagiarize we would not detect that. It would probably be unfeasible to do this for all languages. Since ``stealing'' ideas is also a form of plagiarism, we could also not detect that. I am not sure how that could even be possible to detect. 
 \end{enumerate}
 
 \newpage \item \textit{Causality}. You are asked to build a system to extract causal statements from text of a manufacturing company with a lot of textual document, including technical reports. For example the sentence \newline\texttt{``Mechanical stress is one of the main causes of yield loss''} \newline should be automatically annotated as \newline\texttt{``\{Mechanical stress\}$_{Cause}$ is one of the main \{causes\}$_{Cue}$ of \{yield loss\}$_{Effect}$''}.
@@ -145,7 +140,7 @@ Look at the other people mentioned in the tweet and find out if they have a simi
 
 \begin{enumerate}
 \item  
-	machine learning approach, deep learning BERT (maybe we find a pretrained BERT-model that is trained on technical reports or similar), 
+	A machine learning approach seems to be the best fit. Probably some kind of deep learning like BERT (maybe we find a pretrained BERT-model that is trained on technical reports or similar). 
 \item 
 	Evaluation often struggles as there is often no ground truth.
 \end{enumerate}
@@ -160,11 +155,11 @@ Look at the other people mentioned in the tweet and find out if they have a simi
 
 \begin{enumerate}
 \item  
-	somehow create some ground truth that we can compare to, otherwise we need to involve humans that rate the output of the model	
+	Somehow create some ground truth that we can compare to, otherwise we need to involve humans that rate the output of the model. Might also make sense to use a explainable AI model, if possible. We also need a baseline to compare against (heuristic, human).
 \item 
-	compare the stylography of the output of the model with texts from the author we are trying to mimic
+	Compare the stylometry of the output of the model with texts from the author we are trying to mimic. Ensemble some typical stylometric features like average word length, vocabulary richness measure, white space ratio, \dots\,. Maybe the individual authors have some consistent style that is very recognizable, look at what feature separates that author from the others. Another idea would be to use an already trained model that identifies authors and let that rate the writing style of the created texts.
 \item 
-	
+	If we use humans to create a ground truth or to rate the output we also need to look at the inter-rater agreement. They might disagree in some aspects.
 \end{enumerate}
 
 
