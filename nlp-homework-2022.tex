@@ -52,11 +52,9 @@
 
 \begin{enumerate}
 \item
-	can't really tell where one sequence ends and the next one starts
+	By only using entity and outside tokens we can't represent two entities next to each other. We have no tag to create a boundary between these two entities.
 \item
-	(BERT sequence should start with a [CLS] token)\\
-	inside, outside, beginning \\
-	there is a beginning inside of two outsides
+	?
 \end{enumerate}
 
 
@@ -140,9 +138,9 @@ We could crawl a dataset from twitter by using the twitter handle of celebrities
 
 \begin{enumerate}
 \item  
-	A machine learning approach seems to be the best fit. Probably some kind of deep learning like BERT (maybe we find a pretrained BERT-model that is trained on technical reports or similar). 
+	We want to detect the span and roles of causality in the text. A machine learning approach seems to be the best fit. Probably some kind of deep learning like BERT (maybe we find a pretrained BERT-model that is trained on technical reports or similar) since those currently produce the best results. 
 \item 
-	Evaluation often struggles as there is often no ground truth.
+	Evaluation often struggles as there is often no ground truth. But we would expect similar precision and recall values, maybe a bit higher recall than presicion. The longer the sentence the harder it gets to find causal relations, since there could also be multiple of those in a single long sentence.
 \end{enumerate}
 
 
