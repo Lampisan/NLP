@@ -23,9 +23,9 @@
 \begin{itemize}[topsep=0mm, partopsep=0mm, noitemsep, leftmargin=*, label=\faSquareO]
 	\item[\faCheckSquare] Words are influenced by their surrounding words in context
 	\item The sentiment influences the word order in conjunctions \\
-		  \{ I would expect no influence here \}
+		  \{ we would expect no influence here \}
 	\item[\faCheckSquare] Average sentence length depends on the author's specific writing style \\
-		 \{ also does depend on other factors, e.g. what text are we writing\}
+		 \{ also does depend on other factors, e.g. what type of text is the author writing\}
 	\item Lexems depends on the anaphoric resolution \\
 		 \{ anaphoric resolution ... the problem of resolving what a pronoun, or a noun phrase refers to \\
 		    lexeme ... root form of a word \\
@@ -37,10 +37,11 @@
 	\item Deep learning is always preferred over rule-based approaches \\
 		  \{ rule-based might be simpler, if it also solves the problem why not use it,  also rule-based approaches need far less data than deep learning\} 
 	\item Rule-based approaches require large amounts of labelled training data \\
-		  \{ often created manually, no need for large amount of data\}
+		  \{ rules are often created manually and then just applied, no need for large amount of data\}
 	\item The industry often prefers rule-based approaches over machine learning \\
 		  \{ can't really speak for the whole industry, but I guess that both approaches have valid applications\}
-	\item[\faCheckSquare] Deep learning is considered the state of the art for many NLP tasks
+	\item[\faCheckSquare] Deep learning is considered the state of the art for many NLP tasks \\
+		  \{ deep learning produces the best results for almost all tasks\}
 \end{itemize}
 
 
@@ -68,7 +69,7 @@
 \item
 	For classical word embeddings we would use the same embedding for words even if they are used in different contexts. For example ``computer mouse'' and ``mouse rodent'', in this case we would get the same word embedding vector for both (`global' word embedding). Contextual word embedding we would in the best case get two different embeddings depending on the context the word is used in.
 \item
-	Can't really think of any. In some cases the contextual word embedding would not provide any advantages, but I see no case were it would actively hurt to use contextual word embeddings.
+	Can't really think of any. In some cases the contextual word embedding would not provide any advantages, but I see no case were it would actively hurt to use contextual word embeddings. One disadvantage of the contextual word embedding, like BERT, is that we need to know the model in order to use the embeddings, since the model generates the embedding based on the context. For traditional word embedding techniques we get a context independent vector that we can directly use.
 \end{enumerate}
 
 
@@ -79,10 +80,10 @@
 \end{enumerate}
 \begin{enumerate}
 \item
-	The many attention-based approach does not really process the sequence of input tokens one by one (more of a parallel computation). Therefore the order of tokens gets lost. We believe that language has an order therefore we would like to keep this information intact. Otherwise the sentences ``cook kneads dough'' and ``dough kneads cook'' would be the same. This is achieved by additionally adding a position embedding, which could be either learned or fixed. Now the transformer is able to know the relative position of the words.
+	The many attention-based approach does not really process the sequence of input tokens one by one (more of a parallel computation, sequence at once). Therefore the order of tokens gets lost. We believe that language has an order therefore we would like to keep this information intact. Otherwise the sentences ``cook kneads dough'' and ``dough kneads cook'' would be the same. This is achieved by additionally adding a position embedding, which could be either learned or fixed. Now the transformer is able to know the relative position of the words.
 \item
 	speech to text, text generation\\
-	If we would like to generate text the transformer does not really net a position embedding for the input.
+	If we would like to generate text the transformer does not really net a position embedding for the input. Also if we only provide a single word as input the position does not matter.
 \end{enumerate}
 
 
@@ -103,11 +104,11 @@ Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 202
 
 \begin{enumerate}
 \item
-hashtags, twitter id / @handle
+	hashtags, twitter id / @handle
 \item
-crawl or find a dataset that has the name of celebrities and some information about their field of work (sport, movie, politician, ...) e.g. actor/actress imdb
+	We could crawl or find a dataset that has the name of celebrities and some information about their field of work (sport, movie, politician, \dots) e.g. actor/actress imdb and use that to identify the topics of the tweet and to differentiate between two people that have the same name. Also some kind of graph that connects celebrities with each other would be helpful, for example cluster of sport teams, cluster of actors/actresses that play together in a movie, singers that colaborate, \dots\,.
 \item
-We could crawl a dataset from twitter by using the twitter handle of celebrities. Now we know that these tweets correspond to the individual celebrities. We could train a model by masking out the text of the twitter handle of the person and asking the model to predict which celebrity the tweet corresponds too. We know the ground truth and after training we could apply the model on tweets that to not contain the twitter handle. 
+	We could crawl a dataset from twitter by using the twitter handle of celebrities. Now we know that these tweets correspond to the individual celebrities. We could train a model by masking out the text of the twitter handle of the person and asking the model to predict which celebrity the tweet corresponds too. We know the ground truth and after training we could apply the model on tweets that to not contain the twitter handle. 
 \end{enumerate}
 
 
@@ -155,7 +156,7 @@ We could crawl a dataset from twitter by using the twitter handle of celebrities
 \item  
 	Somehow create some ground truth that we can compare to, otherwise we need to involve humans that rate the output of the model. Might also make sense to use a explainable AI model, if possible. We also need a baseline to compare against (heuristic, human).
 \item 
-	Compare the stylometry of the output of the model with texts from the author we are trying to mimic. Ensemble some typical stylometric features like average word length, vocabulary richness measure, white space ratio, \dots\,. Maybe the individual authors have some consistent style that is very recognizable, look at what feature separates that author from the others. Another idea would be to use an already trained model that identifies authors and let that rate the writing style of the created texts.
+	Compare the stylometry of the output of the model with texts from the author we are trying to mimic. Ensemble some typical stylometric features like average word length, vocabulary richness measure, white space ratio, \dots\,. Maybe the individual authors have some consistent style that is very recognizable, look at what feature separates that author from the others. Another idea would be to use an already trained model that identifies authors and let that predict the author of the created texts by writing styles.
 \item 
 	If we use humans to create a ground truth or to rate the output we also need to look at the inter-rater agreement. They might disagree in some aspects.
 \end{enumerate}
