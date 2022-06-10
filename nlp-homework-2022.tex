@@ -23,7 +23,7 @@
 \begin{itemize}[topsep=0mm, partopsep=0mm, noitemsep, leftmargin=*, label=\faSquareO]
 	\item[\faCheckSquare] Words are influenced by their surrounding words in context
 	\item The sentiment influences the word order in conjunctions \\
-		  \{ we would expect no influence here \}
+		  \{ we would expect no influence here, needs to be tested \}
 	\item[\faCheckSquare] Average sentence length depends on the author's specific writing style \\
 		 \{ also does depend on other factors, e.g. what type of text is the author writing\}
 	\item Lexems depends on the anaphoric resolution \\
@@ -39,7 +39,7 @@
 	\item Rule-based approaches require large amounts of labelled training data \\
 		  \{ rules are often created manually and then just applied, no need for large amount of data\}
 	\item The industry often prefers rule-based approaches over machine learning \\
-		  \{ can't really speak for the whole industry, but I guess that both approaches have valid applications\}
+		  \{ can't really speak for the whole industry, but I guess that both approaches have valid applications \\ some companies might also like the buzzwords for machine learning\}
 	\item[\faCheckSquare] Deep learning is considered the state of the art for many NLP tasks \\
 		  \{ deep learning produces the best results for almost all tasks\}
 \end{itemize}
@@ -55,7 +55,7 @@
 \item
 	By only using entity and outside tokens we can't represent two entities next to each other. We have no tag to create a boundary between these two entities.
 \item
-	?
+	BERT does not learn the beginning token since it just learns what is a named entity and what is not a named entity. BERT might also have trouble with neighboring entities, does not really know when one entity ends and another begins. For example two first names are probably two different people or they could be the name of one person.
 \end{enumerate}
 
 
@@ -82,8 +82,12 @@
 \item
 	The many attention-based approach does not really process the sequence of input tokens one by one (more of a parallel computation, sequence at once). Therefore the order of tokens gets lost. We believe that language has an order therefore we would like to keep this information intact. Otherwise the sentences ``cook kneads dough'' and ``dough kneads cook'' would be the same. This is achieved by additionally adding a position embedding, which could be either learned or fixed. Now the transformer is able to know the relative position of the words.
 \item
-	speech to text, text generation\\
-	If we would like to generate text the transformer does not really net a position embedding for the input. Also if we only provide a single word as input the position does not matter.
+	Text generation\\
+	If we would like to generate text the transformer does not really net a position embedding for the input. Also if we only provide a single word as input the position does not matter.\\
+	Speech to text\\
+	Input is a recording or live feed of spoken text. The postition is embedded in the temportal domain.\\
+	Spam detection\\
+	The model probably tries to identify key words that indicate a spam message and does not really care about the order of the text.
 \end{enumerate}
 
 
@@ -122,11 +126,11 @@ Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 202
 
 \begin{enumerate}
 \item  
-	Consider larger knowledge bases in the web (wikipedia, ...), other bachelor thesis, master thesis and publications. If we know the field we could maybe narrow down the data needed. \\ Previously known cases of plagiarism (probably hand labeled) will also be useful.
+	Consider larger knowledge bases in the web (wikipedia, ...), other bachelor thesis, master thesis and publications. If we know the field we could maybe narrow down the data needed. Also the submission of other students from the same course or previous years.  \\ Previously known cases of plagiarism (probably hand labeled) will also be useful.
 \item 
 	 A simple feature to use would be n-grams and then there compare the overlap. Maybe use POS tagging for semantic similarity. Use some vector embedding like GloVe. Compute similarity features and containment. Find subsequences that are the same (long = probably plagiarism). We should also decide if we do this on a word or sentence level. Also stylometry could be considered. If some part of the text has a vastly different style and is not cited id could be an indication for plagiarism.
 \item 
-	Some deep learning model. There are Deep Structured Sematic Models which might be a good fit for this task. Otherwise maybe a Bi-LSTM or Transformer.
+	Some deep learning model. There are Deep Structured Sematic Models which might be a good fit for this task. Otherwise maybe a Bi-LSTM or Transformer. Ensemble the features described. If we have a large amount of labeled plagiarism file we can apply a supervised method. Otherwise we might need to apply a unsupervised method or create a labeled dataset ourselves. One idea on how to do that would be to use text and insert a random sentence from another text into it.
 \item
 	Data collection would need large amount of resources. Furthermore training the model on a large amount of data will take quite some time. Would definitely work well on the form of ``copy-paste plagiarism''. If somebody translates one language into another and uses this to plagiarize we would not detect that. It would probably be unfeasible to do this for all languages. Since ``stealing'' ideas is also a form of plagiarism, we could also not detect that. I am not sure how that could even be possible to detect. 
 \end{enumerate}
@@ -141,7 +145,7 @@ Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 202
 \item  
 	We want to detect the span and roles of causality in the text. A machine learning approach seems to be the best fit. Probably some kind of deep learning like BERT (maybe we find a pretrained BERT-model that is trained on technical reports or similar) since those currently produce the best results. 
 \item 
-	Evaluation often struggles as there is often no ground truth. But we would expect similar precision and recall values, maybe a bit higher recall than presicion. The longer the sentence the harder it gets to find causal relations, since there could also be multiple of those in a single long sentence.
+	Evaluation often struggles as there is often no ground truth. But we would expect similar precision and recall values, maybe a bit higher recall than presicion. The longer the sentence the harder it gets to find causal relations, since there could also be multiple (and convoluted) causal relations in a single long sentence.
 \end{enumerate}
 
 
