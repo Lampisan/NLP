@@ -11,7 +11,7 @@
 \item \textit{Text Representation}. What is the document-term matrix?
 \begin{itemize}[topsep=0mm, partopsep=0mm, noitemsep, leftmargin=*, label=\faSquareO]
 	\item Each term of a language is getting documented by specially trained linguists \\
-		  \{ just does not make sense \}
+		  \{ just does not make sense, also would be an unfeasible amount of work \}
 	\item The latent representation of attention heads in Transformer blocks \\
 		  \{ maps a query and a set of key-value pairs to an output \}
 	\item[\faCheckSquare] Feature space spawned by terms over documents represented as a matrix
@@ -23,13 +23,13 @@
 \begin{itemize}[topsep=0mm, partopsep=0mm, noitemsep, leftmargin=*, label=\faSquareO]
 	\item[\faCheckSquare] Words are influenced by their surrounding words in context
 	\item The sentiment influences the word order in conjunctions \\
-		  \{ we would expect no influence here, needs to be tested \}
+		  \{ we would expect no influence here, but could be tested \}
 	\item[\faCheckSquare] Average sentence length depends on the author's specific writing style \\
 		 \{ also does depend on other factors, e.g. what type of text is the author writing\}
 	\item Lexems depends on the anaphoric resolution \\
 		 \{ anaphoric resolution ... the problem of resolving what a pronoun, or a noun phrase refers to \\
 		    lexeme ... root form of a word \\
-			pronouns are probably invariable in terms of lexemes? \}
+			pronouns refer to a noun (e.g. I, you, this, what) and are probably learned as different lexems \}
 \end{itemize}
 
 \item \textit{Learning}. Which of these statements is true?
@@ -39,9 +39,9 @@
 	\item Rule-based approaches require large amounts of labelled training data \\
 		  \{ rules are often created manually and then just applied, no need for large amount of data\}
 	\item The industry often prefers rule-based approaches over machine learning \\
-		  \{ can't really speak for the whole industry, but I guess that both approaches have valid applications \\ some companies might also like the buzzwords for machine learning\}
+		  \{ can't really speak for the whole industry, but I guess that both approaches have valid applications, \\ some companies might also like the buzzwords for machine learning\}
 	\item[\faCheckSquare] Deep learning is considered the state of the art for many NLP tasks \\
-		  \{ deep learning produces the best results for almost all tasks\}
+		  \{ deep learning currently produces the best results for almost all NLP tasks\}
 \end{itemize}
 
 
@@ -67,9 +67,9 @@
 
 \begin{enumerate}
 \item
-	For classical word embeddings we would use the same embedding for words even if they are used in different contexts. For example ``computer mouse'' and ``mouse rodent'', in this case we would get the same word embedding vector for both (`global' word embedding). Contextual word embedding we would in the best case get two different embeddings depending on the context the word is used in.
+	For classical word embeddings we would use the same embedding for words even if they are used in different contexts. For example ``computer mouse'' and ``mouse rodent'', in this case we would get the same word embedding vector for both (`global' word embedding). With contextual word embedding we would in the best case get two different embeddings depending on the context the word is used in.
 \item
-	Can't really think of any. In some cases the contextual word embedding would not provide any advantages, but I see no case were it would actively hurt to use contextual word embeddings. One disadvantage of the contextual word embedding, like BERT, is that we need to know the model in order to use the embeddings, since the model generates the embedding based on the context. For traditional word embedding techniques we get a context independent vector that we can directly use.
+	Can't really think of any. In some cases the contextual word embedding would not provide any advantages, but I don't really see a case were it would actively hurt to use contextual word embeddings. One disadvantage of the contextual word embedding, like BERT, is that we need to know the model in order to use the embeddings, since the model generates the embedding based on the context. For traditional word embedding techniques we get a context independent vector that we can directly use.
 \end{enumerate}
 
 
@@ -83,9 +83,9 @@
 	The many attention-based approach does not really process the sequence of input tokens one by one (more of a parallel computation, sequence at once). Therefore the order of tokens gets lost. We believe that language has an order therefore we would like to keep this information intact. Otherwise the sentences ``cook kneads dough'' and ``dough kneads cook'' would be the same. This is achieved by additionally adding a position embedding, which could be either learned or fixed. Now the transformer is able to know the relative position of the words.
 \item
 	Text generation\\
-	If we would like to generate text the transformer does not really net a position embedding for the input. Also if we only provide a single word as input the position does not matter.\\
+	If we would like to generate text the transformer does not really need a position embedding for the input. Also if we only provide a single word as input the position does not matter.\\
 	Speech to text\\
-	Input is a recording or live feed of spoken text. The postition is embedded in the temportal domain.\\
+	Input is a recording or live feed of spoken text. The postition is embedded in the temporal domain.\\
 	Spam detection\\
 	The model probably tries to identify key words that indicate a spam message and does not really care about the order of the text.
 \end{enumerate}
@@ -108,11 +108,12 @@ Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 202
 
 \begin{enumerate}
 \item
-	hashtags, twitter id / @handle
+	\# hashtags, twitter id / @handle \\
+	finding the celebrity accounts via verified accounts (no impersonators)
 \item
 	We could crawl or find a dataset that has the name of celebrities and some information about their field of work (sport, movie, politician, \dots) e.g. actor/actress imdb and use that to identify the topics of the tweet and to differentiate between two people that have the same name. Also some kind of graph that connects celebrities with each other would be helpful, for example cluster of sport teams, cluster of actors/actresses that play together in a movie, singers that colaborate, \dots\,.
 \item
-	We could crawl a dataset from twitter by using the twitter handle of celebrities. Now we know that these tweets correspond to the individual celebrities. We could train a model by masking out the text of the twitter handle of the person and asking the model to predict which celebrity the tweet corresponds too. We know the ground truth and after training we could apply the model on tweets that to not contain the twitter handle. 
+	We would crawl a dataset from twitter by using the twitter handle of celebrities. Now we know that these tweets correspond to the individual celebrities. We could train a model by masking out the mention of the twitter handle of the person and ask the model to predict which celebrity the tweet corresponds too. We know the ground truth and after training we could apply the model on tweets that to not contain the twitter handle. If only the name is given in these tweets without the handle we could also only look at celebrities with this specific name and query the model which of those persons is more likely that the tweet corresponds to. 
 \end{enumerate}
 
 
@@ -126,13 +127,13 @@ Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 202
 
 \begin{enumerate}
 \item  
-	Consider larger knowledge bases in the web (wikipedia, ...), other bachelor thesis, master thesis and publications. If we know the field we could maybe narrow down the data needed. Also the submission of other students from the same course or previous years.  \\ Previously known cases of plagiarism (probably hand labeled) will also be useful.
+	Consider larger knowledge bases in the web (wikipedia, ...), other bachelor thesis, master thesis and publications. If we know the field we could maybe narrow down the data needed. Also the submission of other students from the same course or previous years.  Previously known cases of plagiarism (probably hand labeled) will also be useful.
 \item 
-	 A simple feature to use would be n-grams and then there compare the overlap. Maybe use POS tagging for semantic similarity. Use some vector embedding like GloVe. Compute similarity features and containment. Find subsequences that are the same (long = probably plagiarism). We should also decide if we do this on a word or sentence level. Also stylometry could be considered. If some part of the text has a vastly different style and is not cited id could be an indication for plagiarism.
+	 A simple feature to use would be n-grams and then compare the overlap. A more advanced idea would be to use POS tagging for semantic similarity. Or we could use some vector embedding like GloVe and then compute similarity features and containment. We should also decide if we do this on a word or sentence level. Also stylometry could be considered. If some part of the text has a vastly different style and is not cited it could be an indication for plagiarism.
 \item 
 	Some deep learning model. There are Deep Structured Sematic Models which might be a good fit for this task. Otherwise maybe a Bi-LSTM or Transformer. Ensemble the features described. If we have a large amount of labeled plagiarism file we can apply a supervised method. Otherwise we might need to apply a unsupervised method or create a labeled dataset ourselves. One idea on how to do that would be to use text and insert a random sentence from another text into it.
 \item
-	Data collection would need large amount of resources. Furthermore training the model on a large amount of data will take quite some time. Would definitely work well on the form of ``copy-paste plagiarism''. If somebody translates one language into another and uses this to plagiarize we would not detect that. It would probably be unfeasible to do this for all languages. Since ``stealing'' ideas is also a form of plagiarism, we could also not detect that. I am not sure how that could even be possible to detect. 
+	Data collection would need large amount of resources. Furthermore training the model on a large amount of data will take quite some time. Would definitely work well on the form of ``copy-paste plagiarism''. If somebody translates one language into another and uses this to plagiarize we would only detect it if the stylometry changes. ``Stealing'' ideas is also a form of plagiarism, which we could not detect that. I am not sure how that could even be possible to detect. We would also not check if the used citations are correct, so a writer might cite a wrong source or just make a source up in order to hide the plagiarism.
 \end{enumerate}
 
 \newpage \item \textit{Causality}. You are asked to build a system to extract causal statements from text of a manufacturing company with a lot of textual document, including technical reports. For example the sentence \newline\texttt{``Mechanical stress is one of the main causes of yield loss''} \newline should be automatically annotated as \newline\texttt{``\{Mechanical stress\}$_{Cause}$ is one of the main \{causes\}$_{Cue}$ of \{yield loss\}$_{Effect}$''}.
@@ -143,9 +144,9 @@ Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 202
 
 \begin{enumerate}
 \item  
-	We want to detect the span and roles of causality in the text. A machine learning approach seems to be the best fit. Probably some kind of deep learning like BERT (maybe we find a pretrained BERT-model that is trained on technical reports or similar) since those currently produce the best results. 
+	We want to detect the span and roles of causality in the text. A machine learning approach seems to be the best fit. Probably some kind of deep learning like BERT (maybe we find a pretrained BERT-model that is trained on technical reports or similar) since those currently produce the best results. For training we need annotated corpora.
 \item 
-	Evaluation often struggles as there is often no ground truth. But we would expect similar precision and recall values, maybe a bit higher recall than presicion. The longer the sentence the harder it gets to find causal relations, since there could also be multiple (and convoluted) causal relations in a single long sentence.
+	Evaluation often struggles as there is often no ground truth. But we would expect similar precision and recall values, maybe a bit higher recall than presicion. The longer the sentence the harder it gets to find causal relations, since there could also be multiple (and convoluted) causal relations in a single long sentence. The causal relations could even span multiple sentences, I think for our approach detection in a single sentence should be sufficient.
 \end{enumerate}
 
 
@@ -158,11 +159,11 @@ Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 202
 
 \begin{enumerate}
 \item  
-	Somehow create some ground truth that we can compare to, otherwise we need to involve humans that rate the output of the model. Might also make sense to use a explainable AI model, if possible. We also need a baseline to compare against (heuristic, human).
+	Somehow create some ground truth that we can compare to, otherwise we need to involve humans that rate the output of the model. Might also make sense to use an explainable AI model, if possible. We also need a baseline to compare against (heuristic, human).
 \item 
-	Compare the stylometry of the output of the model with texts from the author we are trying to mimic. Ensemble some typical stylometric features like average word length, vocabulary richness measure, white space ratio, \dots\,. Maybe the individual authors have some consistent style that is very recognizable, look at what feature separates that author from the others. Another idea would be to use an already trained model that identifies authors and let that predict the author of the created texts by writing styles.
+	Compare the stylometry of the output of the model with texts from the author we are trying to mimic. Ensemble some typical stylometric features like average word length, vocabulary richness measure, white space ratio, \dots\,. Maybe the individual authors have some consistent style that is very recognizable, look at what feature separates that author from the others. Another idea would be to use an already trained model that identifies authors (might be harder to find one that uses German text) and let that predict the author of the created texts by writing styles.
 \item 
-	If we use humans to create a ground truth or to rate the output we also need to look at the inter-rater agreement. They might disagree in some aspects.
+	If we use humans to create a ground truth or to rate the output we also need to look at the inter-rater agreement. They might disagree in some aspects. If we use another model to rate the output of our prediction the total accuracy is also dependent on both models, could be hard to differentiate in terms of which part of the error corresponds to which model.
 \end{enumerate}
 
 
