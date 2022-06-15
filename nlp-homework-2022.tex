@@ -16,7 +16,7 @@
 		  \{ maps a query and a set of key-value pairs to an output \}
 	\item[\faCheckSquare] Feature space spawned by terms over documents represented as a matrix
 	\item Adjacency matrix of the bipartite graph of documents and the terms contained in each document \\
-  	 	  \{ why bipartite? Adjacency matrix would be square, document-term matrix \#documents $\times$ \#terms \}
+  	 	  \{ Adjacency matrix would be square, document-term matrix \#documents $\times$ \#terms, but from a logical standpoint the document term matrix is contained in the adjacency matrix\}
 \end{itemize}
 
 \item \textit{Assumptions}. Which are reasonable approaches to capture information in text?
@@ -29,7 +29,8 @@
 	\item Lexems depends on the anaphoric resolution \\
 		 \{ anaphoric resolution ... the problem of resolving what a pronoun, or a noun phrase refers to \\
 		    lexeme ... root form of a word \\
-			pronouns refer to a noun (e.g. I, you, this, what) and are probably learned as different lexems \}
+			pronouns refer to a noun (e.g. I, you, this, what) and are probably learned as different lexems \\
+			don't really see the connection between the two terms here\}
 \end{itemize}
 
 \item \textit{Learning}. Which of these statements is true?
@@ -85,9 +86,10 @@
 	Text generation\\
 	If we would like to generate text the transformer does not really need a position embedding for the input. Also if we only provide a single word as input the position does not matter.\\
 	Speech to text\\
-	Input is a recording or live feed of spoken text. The postition is embedded in the temporal domain.\\
+	Input is a recording or live feed of spoken text. The position is embedded in the temporal domain.\\
 	Spam detection\\
-	The model probably tries to identify key words that indicate a spam message and does not really care about the order of the text.
+	The model probably tries to identify key words that indicate a spam message and does not really care about the order of the text.\\
+	Also everytime the input text consists out of words where the position of these words does not matter.
 \end{enumerate}
 
 
@@ -111,9 +113,9 @@ Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 202
 	\# hashtags, twitter id / @handle \\
 	finding the celebrity accounts via verified accounts (no impersonators)
 \item
-	We could crawl or find a dataset that has the name of celebrities and some information about their field of work (sport, movie, politician, \dots) e.g. actor/actress imdb and use that to identify the topics of the tweet and to differentiate between two people that have the same name. Also some kind of graph that connects celebrities with each other would be helpful, for example cluster of sport teams, cluster of actors/actresses that play together in a movie, singers that colaborate, \dots\,.
+	We could crawl or find a dataset that has the name of celebrities and some information about their field of work (sport, movie, politician, \dots) e.g. actor/actress imdb and use that to identify the topics of the tweet and to differentiate between two people that have the same name. Also some kind of graph that connects celebrities with each other would be helpful, for example cluster of sport teams, cluster of actors/actresses that play together in a movie, singers that colaborate, \dots\,. Could also make use of other social media networks.
 \item
-	We would crawl a dataset from twitter by using the twitter handle of celebrities. Now we know that these tweets correspond to the individual celebrities. We could train a model by masking out the mention of the twitter handle of the person and ask the model to predict which celebrity the tweet corresponds too. We know the ground truth and after training we could apply the model on tweets that to not contain the twitter handle. If only the name is given in these tweets without the handle we could also only look at celebrities with this specific name and query the model which of those persons is more likely that the tweet corresponds to. 
+	We would crawl a dataset from twitter by using the twitter handle of celebrities. Now we know that these tweets correspond to the individual celebrities. We could train a model (probably some Transformer, even better if pre-trained) by masking out the mention of the twitter handle of the person and ask the model to predict which celebrity the tweet corresponds too. We know the ground truth and after training we could apply the model on tweets that to not contain the twitter handle. If only the name is given in these tweets without the handle we could also only look at celebrities with this specific name and query the model which of those persons is more likely that the tweet corresponds to. 
 \end{enumerate}
 
 
@@ -131,7 +133,7 @@ Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 202
 \item 
 	 A simple feature to use would be n-grams and then compare the overlap. A more advanced idea would be to use POS tagging for semantic similarity. Or we could use some vector embedding like GloVe and then compute similarity features and containment. We should also decide if we do this on a word or sentence level. Also stylometry could be considered. If some part of the text has a vastly different style and is not cited it could be an indication for plagiarism.
 \item 
-	Some deep learning model. There are Deep Structured Sematic Models which might be a good fit for this task. Otherwise maybe a Bi-LSTM or Transformer. Ensemble the features described. If we have a large amount of labeled plagiarism file we can apply a supervised method. Otherwise we might need to apply a unsupervised method or create a labeled dataset ourselves. One idea on how to do that would be to use text and insert a random sentence from another text into it.
+	Some deep learning model. There are Deep Structured Sematic Models which might be a good fit for this task. Otherwise maybe a Bi-LSTM or Transformer. Ensemble the features described. If we have a large amount of labeled plagiarism file we can apply a supervised method. Otherwise we might need to apply a unsupervised method or create a labeled dataset ourselves. One idea on how to do that would be to use text and insert a random sentence from another text into it. Also the human expert still has to judge the findings of the model.
 \item
 	Data collection would need large amount of resources. Furthermore training the model on a large amount of data will take quite some time. Would definitely work well on the form of ``copy-paste plagiarism''. If somebody translates one language into another and uses this to plagiarize we would only detect it if the stylometry changes. ``Stealing'' ideas is also a form of plagiarism, which we could not detect that. I am not sure how that could even be possible to detect. We would also not check if the used citations are correct, so a writer might cite a wrong source or just make a source up in order to hide the plagiarism.
 \end{enumerate}
@@ -144,9 +146,9 @@ Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 202
 
 \begin{enumerate}
 \item  
-	We want to detect the span and roles of causality in the text. A machine learning approach seems to be the best fit. Probably some kind of deep learning like BERT (maybe we find a pretrained BERT-model that is trained on technical reports or similar) since those currently produce the best results. For training we need annotated corpora.
+	We want to detect the span and roles of causality in the text. A machine learning approach seems to be the best fit. Probably some kind of deep learning like BERT (maybe we find a pretrained BERT-model that is trained on technical reports or similar) since those currently produce the best results (sequence classification). For training we need annotated corpora.
 \item 
-	Evaluation often struggles as there is often no ground truth. But we would expect similar precision and recall values, maybe a bit higher recall than presicion. The longer the sentence the harder it gets to find causal relations, since there could also be multiple (and convoluted) causal relations in a single long sentence. The causal relations could even span multiple sentences, I think for our approach detection in a single sentence should be sufficient.
+	Evaluation often struggles as there is often no ground truth. But we would expect similar precision and recall values, if trained successfully we would expect ``high'' values for these. The longer the sentence the harder it gets to find causal relations, since there could also be multiple (and convoluted) causal relations in a single long sentence. The causal relations could even span multiple sentences, I think for our approach detection in a single sentence should be sufficient.
 \end{enumerate}
 
 
@@ -161,7 +163,7 @@ Golf: Will Zalatoris, Adam Scott, Keegan Bradley among those now exempt into 202
 \item  
 	Somehow create some ground truth that we can compare to, otherwise we need to involve humans that rate the output of the model. Might also make sense to use an explainable AI model, if possible. We also need a baseline to compare against (heuristic, human).
 \item 
-	Compare the stylometry of the output of the model with texts from the author we are trying to mimic. Ensemble some typical stylometric features like average word length, vocabulary richness measure, white space ratio, \dots\,. Maybe the individual authors have some consistent style that is very recognizable, look at what feature separates that author from the others. Another idea would be to use an already trained model that identifies authors (might be harder to find one that uses German text) and let that predict the author of the created texts by writing styles.
+	Compare the stylometry of the output of the model with texts from the author we are trying to mimic. Ensemble some typical stylometric features like average word length, vocabulary richness measure, white space ratio, \dots\,. Maybe the individual authors have some consistent style that is very recognizable, look at what feature separates that author from the others. Another idea would be to use an already trained model that identifies authors (might be harder to find one that uses German text) and let that predict the author of the created texts by writing styles. We would probably get the ``most correct'' evaluation by using experts, but will be expensive.
 \item 
 	If we use humans to create a ground truth or to rate the output we also need to look at the inter-rater agreement. They might disagree in some aspects. If we use another model to rate the output of our prediction the total accuracy is also dependent on both models, could be hard to differentiate in terms of which part of the error corresponds to which model.
 \end{enumerate}
